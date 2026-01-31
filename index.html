@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhuvana | Professional Makeup Artist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                              url('https://images.unsplash.com/photo-1522337360788-8b13df772ec2?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Custom Swiper Styles */
+        .swiper-pagination-bullet-active { background: #be185d !important; }
+        .swiper { padding-bottom: 40px !important; }
+        .lookbook-img { transition: transform 0.5s ease; }
+        .lookbook-img:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body class="bg-stone-50 text-gray-800 antialiased">
+
+    <nav class="p-5 md:p-6 flex justify-between items-center bg-white shadow-sm sticky top-0 z-50">
+        <h1 class="text-xl md:text-2xl font-serif font-bold tracking-widest text-pink-700 uppercase">Bhuvana Bridal Artistry</h1>
+        <div class="space-x-8 hidden md:flex text-sm font-medium uppercase tracking-wider">
+            <a href="#services" class="hover:text-pink-600 transition">Services</a>
+            <a href="#gallery" class="hover:text-pink-600 transition">Lookbook</a>
+            <a href="#testimonials" class="hover:text-pink-600 transition">Reviews</a>
+            <a href="#contact" class="bg-pink-700 text-white px-6 py-2 rounded hover:bg-pink-800 transition">Book Now</a>
+        </div>
+        <button id="menu-btn" class="block md:hidden text-gray-800 focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] flex flex-col items-center justify-center space-y-8 text-2xl font-serif transform translate-x-full transition-transform duration-300 md:hidden">
+        <button id="close-btn" class="absolute top-6 right-6 text-gray-800">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <a href="#services" class="mobile-link">Services</a>
+        <a href="#gallery" class="mobile-link">Lookbook</a>
+        <a href="#testimonials" class="mobile-link">Reviews</a>
+        <a href="#contact" class="mobile-link bg-pink-700 text-white px-8 py-3 rounded">Book Now</a>
+    </div>
+
+<section class="relative h-[80vh] flex items-center justify-center text-center overflow-hidden">
+        <video 
+            autoplay 
+            muted 
+            loop 
+            playsinline 
+            class="absolute z-0 w-auto min-w-full min-h-full max-w-none object-cover">
+            <source src="assets/South_Indian_Hero_Section_Video_Generated.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="absolute inset-0 bg-black/40 z-10"></div>
+
+        <div class="relative z-20 text-white px-6">
+            <h2 class="text-4xl md:text-7xl font-serif mb-6 drop-shadow-lg">Mastering Your Glow</h2>
+            <p class="text-base md:text-xl mb-10 max-w-2xl mx-auto font-light drop-shadow-md">Ethereal makeup artistry for the modern bride.</p>
+            <a href="#contact" class="inline-block border-2 border-white text-white px-10 py-3 font-semibold hover:bg-white hover:text-pink-700 transition duration-300 backdrop-blur-sm">Start Your Journey</a>
+        </div>
+    </section>
+
+    <section id="services" class="py-20 container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h3 class="text-3xl font-serif mb-4 uppercase tracking-widest">Our Specialties</h3>
+            <div class="w-16 h-1 bg-pink-300 mx-auto"></div>
+        </div>
+        <div class="swiper serviceSwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide text-center">
+                    <img src="assets/Gemini_Generated_Image_fyq894fyq894fyq8.png" class="w-full h-80 object-cover mb-4 rounded shadow-lg" alt="Bridal">
+                    <h4 class="text-xl font-bold font-serif">Traditional Bridal</h4>
+                </div>
+                <div class="swiper-slide text-center">
+                    <img src="assets/Gemini_Generated_Image_d0q9gbd0q9gbd0q9.png" class="w-full h-80 object-cover mb-4 rounded shadow-lg" alt="Engagement">
+                    <h4 class="text-xl font-bold font-serif">Baby Shower Glam</h4>
+                </div>
+                <div class="swiper-slide text-center">
+                    <img src="assets/Gemini_Generated_Image_beex6wbeex6wbeex.png" class="w-full h-80 object-cover mb-4 rounded shadow-lg" alt="Party">
+                    <h4 class="text-xl font-bold font-serif">Editorial & Party</h4>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-20 bg-stone-100 overflow-hidden">
+        <div class="container mx-auto px-6">
+            <h3 class="text-3xl font-serif text-center mb-12 uppercase tracking-widest">The Lookbook</h3>
+            <div class="swiper lookbookSwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="assets/Gemini_Generated_Image_beex6wbeex6wbeex.png" class="w-full h-[450px] object-cover rounded shadow-md lookbook-img" alt="1"></div>
+                    <div class="swiper-slide"><img src="assets/Gemini_Generated_Image_xb90h4xb90h4xb90.png" class="w-full h-[450px] object-cover rounded shadow-md lookbook-img" alt="2"></div>
+                    <div class="swiper-slide"><img src="assets/Gemini_Generated_Image_d0q9gbd0q9gbd0q9.png" class="w-full h-[450px] object-cover rounded shadow-md lookbook-img" alt="3"></div>
+                    <div class="swiper-slide"><img src="assets/Gemini_Generated_Image_fyq894fyq894fyq8.png" class="w-full h-[450px] object-cover rounded shadow-md lookbook-img" alt="4"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="py-20 container mx-auto px-6">
+        <h3 class="text-3xl font-serif text-center mb-12 uppercase tracking-widest">Bride Diaries</h3>
+        <div class="swiper testimonialSwiper max-w-5xl mx-auto">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide px-4">
+                    <div class="bg-white p-10 rounded-xl shadow-sm border-t-8 border-pink-700 text-center">
+                        <p class="text-gray-600 italic mb-6 leading-relaxed">"A truly professional experience. My makeup was weightless and lasted the entire day!"</p>
+                        <h5 class="font-bold text-pink-700 text-sm tracking-widest">Aditi Sharma</h5>
+                    </div>
+                </div>
+                <div class="swiper-slide px-4">
+                    <div class="bg-white p-10 rounded-xl shadow-sm border-t-8 border-pink-700 text-center">
+                        <p class="text-gray-600 italic mb-6 leading-relaxed">"A truly professional experience. My makeup was weightless and lasted the entire day!"</p>
+                        <h5 class="font-bold text-pink-700 text-sm tracking-widest">Aditi Sharma</h5>
+                    </div>
+                </div>
+                <div class="swiper-slide px-4">
+                    <div class="bg-white p-10 rounded-xl shadow-sm border-t-8 border-pink-700 text-center">
+                        <p class="text-gray-600 italic mb-6 leading-relaxed">"A truly professional experience. My makeup was weightless and lasted the entire day!"</p>
+                        <h5 class="font-bold text-pink-700 text-sm tracking-widest">Aditi Sharma</h5>
+                    </div>
+                </div>
+                <div class="swiper-slide px-4">
+                    <div class="bg-white p-10 rounded-xl shadow-sm border-t-8 border-pink-700 text-center">
+                        <p class="text-gray-600 italic mb-6 leading-relaxed">"A truly professional experience. My makeup was weightless and lasted the entire day!"</p>
+                        <h5 class="font-bold text-pink-700 text-sm tracking-widest">Aditi Sharma</h5>
+                    </div>
+                </div>
+                <div class="swiper-slide px-4">
+                    <div class="bg-white p-10 rounded-xl shadow-sm border-t-8 border-pink-700 text-center">
+                        <p class="text-gray-600 italic mb-6 leading-relaxed">"I was worried about my oily skin, but she handled it perfectly. Zero touch-ups needed!"</p>
+                        <h5 class="font-bold text-pink-700 text-sm tracking-widest">Megha Rao</h5>
+                    </div>
+                </div>
+                <div class="swiper-slide px-4">
+                    <div class="bg-white p-10 rounded-xl shadow-sm border-t-8 border-pink-700 text-center">
+                        <p class="text-gray-600 italic mb-6 leading-relaxed">"The glow she gave me was unreal. I felt so confident in front of the camera."</p>
+                        <h5 class="font-bold text-pink-700 text-sm tracking-widest">Sneha Walia</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-stone-100 px-6">
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 shadow-2xl rounded-2xl overflow-hidden bg-white">
+            <div class="hidden md:block"><img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&q=80&w=1000" class="h-full w-full object-cover"></div>
+            <div class="p-10 md:p-12">
+                <h3 class="text-2xl font-serif mb-6 uppercase">Book Your Date</h3>
+                <form id="contact-form" class="space-y-4">
+                    <input type="text" name="user_name" placeholder="Name" required class="w-full p-3 border-b border-gray-200 outline-none focus:border-pink-500">
+                    <input type="email" name="user_email" placeholder="Email" required class="w-full p-3 border-b border-gray-200 outline-none focus:border-pink-500">
+                    <textarea name="message" placeholder="Wedding Date & Location" rows="4" class="w-full p-3 border-b border-gray-200 outline-none focus:border-pink-500"></textarea>
+                    <button type="submit" class="w-full bg-pink-700 text-white py-4 font-bold uppercase tracking-[0.2em] hover:bg-pink-800 transition">Check Availability</button>
+                </form>
+                <p id="status-msg" class="mt-4 text-center hidden font-bold"></p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 text-center text-gray-400 text-[10px] uppercase tracking-[0.3em]">© 2026 Bridal Artistry Studio</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        // Mobile Menu
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.onclick = () => mobileMenu.classList.remove('translate-x-full');
+        document.getElementById('close-btn').onclick = () => mobileMenu.classList.add('translate-x-full');
+        document.querySelectorAll('.mobile-link').forEach(l => l.onclick = () => mobileMenu.classList.add('translate-x-full'));
+
+        // Initialize Specialties Swiper
+        new Swiper(".serviceSwiper", {
+            slidesPerView: 1, spaceBetween: 30, pagination: { el: ".swiper-pagination", clickable: true },
+            breakpoints: { 768: { slidesPerView: 3 } }
+        });
+
+        // Initialize Lookbook Swiper
+        new Swiper(".lookbookSwiper", {
+            slidesPerView: 1.2, spaceBetween: 15, centeredSlides: false, loop: false,
+            pagination: { el: ".swiper-pagination", clickable: true },
+            breakpoints: { 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }
+        });
+
+        // Initialize Testimonial Swiper
+        new Swiper(".testimonialSwiper", {
+            slidesPerView: 1, spaceBetween: 30, loop: false, autoplay: { delay: 4000 },
+            pagination: { el: ".swiper-pagination", clickable: true },
+            breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+        });
+
+        // EmailJS
+        (function() { emailjs.init("YOUR_PUBLIC_KEY"); })();
+        document.getElementById('contact-form').onsubmit = function(e) {
+            e.preventDefault();
+            const msg = document.getElementById('status-msg');
+            msg.innerText = "Sending..."; msg.classList.remove('hidden');
+            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+                .then(() => { 
+                    msg.innerText = "Booking Inquiry Sent!"; msg.className = "mt-4 text-center text-green-600 font-bold uppercase text-xs"; 
+                    this.reset();
+                }, () => { 
+                    msg.innerText = "Please try again."; msg.className = "mt-4 text-center text-red-600 font-bold uppercase text-xs"; 
+                });
+        };
+    </script>
+</body>
+</html>
