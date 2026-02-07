@@ -140,14 +140,41 @@
                         <input type="text" name="user_name" id="user_name" placeholder="Full Name" required class="w-full p-4 border-b-2 border-gray-100 outline-none focus:bg-rose-50 transition-all">
                         <span id="emoji-user_name" class="emoji-indicator opacity-0">✨</span>
                     </div>
-                    <div class="form-field-group">
-                        <input type="email" name="user_email" id="user_email" placeholder="Email Address" required class="w-full p-4 border-b-2 border-gray-100 outline-none focus:bg-rose-50 transition-all">
-                        <span id="emoji-user_email" class="emoji-indicator opacity-0">📧</span>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-field-group">
+                            <input type="email" name="user_email" id="user_email" placeholder="Email Address" required class="w-full p-4 border-b-2 border-gray-100 outline-none focus:bg-rose-50 transition-all">
+                            <span id="emoji-user_email" class="emoji-indicator opacity-0">📧</span>
+                        </div>
+                        <div class="form-field-group">
+                            <input type="tel" name="user_phone" id="user_phone" placeholder="Phone (e.g. +1...)" required class="w-full p-4 border-b-2 border-gray-100 outline-none focus:bg-rose-50 transition-all">
+                            <span id="emoji-user_phone" class="emoji-indicator opacity-0">📞</span>
+                        </div>
                     </div>
-                    <div class="form-field-group">
-                        <textarea name="message" id="message" placeholder="Wedding Date & Venue" rows="4" required class="w-full p-4 border-b-2 border-gray-100 outline-none focus:bg-rose-50 transition-all"></textarea>
-                        <span id="emoji-message" class="emoji-indicator opacity-0">📅</span>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-field-group">
+                            <label class="text-[10px] uppercase tracking-widest text-gray-400 pl-4">Event Date</label>
+                            <input type="date" name="event_date" id="event_date" required class="w-full p-4 border-b-2 border-gray-100 outline-none focus:bg-rose-50 transition-all text-gray-600">
+                            <span id="emoji-event_date" class="emoji-indicator opacity-0">📅</span>
+                        </div>
+                        <div class="form-field-group">
+                            <label class="text-[10px] uppercase tracking-widest text-gray-400 pl-4">Start Time</label>
+                            <input type="time" name="event_time" id="event_time" required class="w-full p-4 border-b-2 border-gray-100 outline-none focus:bg-rose-50 transition-all text-gray-600">
+                            <span id="emoji-event_time" class="emoji-indicator opacity-0">⏰</span>
+                        </div>
                     </div>
+
+                    <div class="form-field-group">
+                        <input type="text" name="venue_address" id="venue_address" placeholder="Venue Name & Address" required class="w-full p-4 border-b-2 border-gray-100 outline-none focus:bg-rose-50 transition-all">
+                        <span id="emoji-venue_address" class="emoji-indicator opacity-0">📍</span>
+                    </div>
+
+                    <div class="form-field-group">
+                        <textarea name="message" id="message" placeholder="Additional Details" rows="2" class="w-full p-4 border-b-2 border-gray-100 outline-none focus:bg-rose-50 transition-all"></textarea>
+                        <span id="emoji-message" class="emoji-indicator opacity-0">📝</span>
+                    </div>
+
                     <button type="submit" class="w-full bg-pink-700 text-white py-4 font-bold uppercase tracking-[0.2em] hover:bg-pink-800 transition shadow-lg">Check Availability</button>
                 </form>
                 <p id="status-msg" class="mt-4 text-center hidden font-bold"></p>
@@ -160,63 +187,131 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <script>
-        AOS.init({ duration: 1000, once: true });
+   <script>
+    // Initialize AOS
+    AOS.init({ duration: 1000, once: true });
 
-        // Swiper Config
-        new Swiper(".serviceSwiper", { slidesPerView: 1, spaceBetween: 40, pagination: { el: ".swiper-pagination", clickable: true }, breakpoints: { 768: { slidesPerView: 3 } } });
-        new Swiper(".lookbookSwiper", { slidesPerView: 1.2, spaceBetween: 20, pagination: { el: ".swiper-pagination", clickable: true }, breakpoints: { 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } } });
+    // Swiper Config
+    new Swiper(".serviceSwiper", { 
+        slidesPerView: 1, 
+        spaceBetween: 40, 
+        pagination: { el: ".swiper-pagination", clickable: true }, 
+        breakpoints: { 768: { slidesPerView: 3 } } 
+    });
 
-        // Form Logic
-        const form = document.getElementById('contact-form');
-        const inputs = form.querySelectorAll('input, textarea');
+    new Swiper(".lookbookSwiper", { 
+        slidesPerView: 1.2, 
+        spaceBetween: 20, 
+        pagination: { el: ".swiper-pagination", clickable: true }, 
+        breakpoints: { 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } } 
+    });
 
-        const triggerError = (input) => {
-            const emoji = document.getElementById(`emoji-${input.id}`);
-            input.classList.add('input-error');
-            if(emoji) { emoji.innerText = "⚠️"; emoji.classList.add('shake-emoji'); }
-        };
+    // Form Logic
+    const form = document.getElementById('contact-form');
+    // Select all form elements including the new date/time inputs
+    const inputs = form.querySelectorAll('input, textarea, select');
 
-        const triggerSuccess = (input) => {
-            const emoji = document.getElementById(`emoji-${input.id}`);
-            input.classList.remove('input-error');
-            if(emoji) { emoji.innerText = "✅"; emoji.classList.remove('opacity-0', 'shake-emoji'); }
-        };
+    // Map of original emojis to restore them after error state
+    const originalEmojis = {
+        'user_name': '✨',
+        'user_email': '📧',
+        'event_date': '📅',
+        'event_time': '⏰',
+        'venue_address': '📍',
+        'message': '📝'
+    };
 
-        inputs.forEach(input => {
-            input.addEventListener('blur', () => {
-                if (!input.value.trim()) triggerError(input);
-                else triggerSuccess(input);
-            });
-            input.addEventListener('input', () => {
-                if (input.value.trim()) {
-                    input.classList.remove('input-error');
-                    document.getElementById(`emoji-${input.id}`).classList.add('opacity-0');
-                }
-            });
+    const triggerError = (input) => {
+        const emoji = document.getElementById(`emoji-${input.id}`);
+        input.classList.add('input-error');
+        if(emoji) { 
+            emoji.innerText = "⚠️"; 
+            emoji.classList.remove('opacity-0');
+            emoji.classList.add('shake-emoji'); 
+        }
+    };
+
+    const triggerSuccess = (input) => {
+        const emoji = document.getElementById(`emoji-${input.id}`);
+        input.classList.remove('input-error');
+        if(emoji) { 
+            // Restore original emoji based on ID
+            emoji.innerText = originalEmojis[input.id] || "✅"; 
+            emoji.classList.remove('opacity-0', 'shake-emoji'); 
+        }
+    };
+
+    inputs.forEach(input => {
+        // Validation on blur (losing focus)
+        input.addEventListener('blur', () => {
+            if (!input.value.trim()) triggerError(input);
+            else triggerSuccess(input);
         });
 
-        form.onsubmit = function(e) {
-            e.preventDefault();
-            let valid = true;
-            inputs.forEach(input => { if(!input.value.trim()) { triggerError(input); valid = false; } });
-            if(!valid) return;
+        // Clear error/success when typing
+        input.addEventListener('input', () => {
+            if (input.value.trim()) {
+                input.classList.remove('input-error');
+                const emoji = document.getElementById(`emoji-${input.id}`);
+                if(emoji) emoji.classList.add('opacity-0');
+            }
+        });
+    });
 
-            const msg = document.getElementById('status-msg');
-            msg.innerText = "Sending Inquiry..."; msg.classList.remove('hidden');
-            
-            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
-                .then(() => {
-                    msg.innerText = "Sent! We'll contact you soon. 💖";
-                    msg.className = "mt-4 text-center text-green-600 font-bold";
-                    this.reset();
-                    document.querySelectorAll('.emoji-indicator').forEach(el => el.classList.add('opacity-0'));
-                });
-        };
+    form.onsubmit = function(e) {
+        e.preventDefault();
+        let valid = true;
 
-        // Mobile Menu
-        document.getElementById('menu-btn').onclick = () => document.getElementById('mobile-menu').classList.remove('translate-x-full');
-        document.getElementById('close-btn').onclick = () => document.getElementById('mobile-menu').classList.add('translate-x-full');
-    </script>
+        // Final validation check
+        inputs.forEach(input => { 
+            if(!input.value.trim()) { 
+                triggerError(input); 
+                valid = false; 
+            } 
+        });
+
+        if(!valid) return;
+
+        const msg = document.getElementById('status-msg');
+        const btn = form.querySelector('button');
+        
+        msg.innerText = "Checking availability..."; 
+        msg.classList.remove('hidden', 'text-green-600', 'text-red-600');
+        msg.classList.add('text-gray-500');
+        btn.disabled = true;
+        btn.innerText = "Sending...";
+
+        // EmailJS Submission
+        // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your real IDs
+        emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+            .then(() => {
+                msg.innerText = "Sent! We'll contact you soon. 💖";
+                msg.className = "mt-4 text-center text-green-600 font-bold";
+                this.reset();
+                // Reset emoji indicators
+                document.querySelectorAll('.emoji-indicator').forEach(el => el.classList.add('opacity-0'));
+                btn.disabled = false;
+                btn.innerText = "Check Availability";
+            }, (error) => {
+                msg.innerText = "Oops! Something went wrong. Please try again.";
+                msg.className = "mt-4 text-center text-red-600 font-bold";
+                btn.disabled = false;
+                btn.innerText = "Check Availability";
+                console.log("EmailJS Error:", error);
+            });
+    };
+
+    // Mobile Menu Logic
+    const menuBtn = document.getElementById('menu-btn');
+    const closeBtn = document.getElementById('close-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if(menuBtn) {
+        menuBtn.onclick = () => mobileMenu.classList.remove('translate-x-full');
+    }
+    if(closeBtn) {
+        closeBtn.onclick = () => mobileMenu.classList.add('translate-x-full');
+    }
+</script>
 </body>
 </html>
